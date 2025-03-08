@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> RevisionDojo Interactive Code Editor</title>
+  <!-- CodeMirror CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+  <!-- Optional: CodeMirror theme (using a dark theme with purple accents) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/material-darker.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff; /* white background */
+      color: #000000; /* black text */
+      padding: 20px;
+      margin: 0;
+    }
+    h1 {
+      color: #6A0DAD; /* purple accent */
+    }
+    .CodeMirror {
+      border: 1px solid #ccc;
+      height: auto;
+      min-height: 300px;
+    }
+    #output {
+      margin-top: 10px;
+      background: #f4f4f4;
+      padding: 10px;
+      border: 1px solid #ccc;
+      font-family: monospace;
+    }
+    button {
+      background-color: #6A0DAD;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Interactive Code Editor</h1>
+  <!-- The textarea that will be replaced by CodeMirror -->
+  <textarea id="codeEditor">// Write your JavaScript code here
+console.log("Hello, RevisionDojo!");</textarea>
+  <br><br>
+  <button id="runBtn">Run Code</button>
+  <div id="output"></div>
+
+  <!-- Include CodeMirror JS libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+  <!-- Include JavaScript mode for CodeMirror -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+  
+  <script>
+    // Initialize CodeMirror on the textarea
+    var editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
+      mode: "javascript",       // Set language mode
+      lineNumbers: true,          // Show line numbers
+      theme: "material-darker"    // Use the material-darker theme (customizable)
+    });
+
+    // Function to execute the code written in the editor
+    document.getElementById("runBtn").addEventListener("click", function() {
+      var code = editor.getValue();
+      try {
+        // Execute the JavaScript code; note: use eval() with caution in trusted environments
+        var result = eval(code);
+        document.getElementById("output").innerText = "Output: " + result;
+      } catch (e) {
+        document.getElementById("output").innerText = "Error: " + e.message;
+      }
+    });
+  </script>
+</body>
+</html>
